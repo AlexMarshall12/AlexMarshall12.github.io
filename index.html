@@ -1,1 +1,73 @@
-Hello World
+---
+layout: default
+---
+{% include header.html %}
+<div class="Professional">
+    <h1>Professional</h1>
+    <ul>
+        {% for websites in site.data.websites %}
+        <li>
+            <a href="{{ websites.url }}">{{ websites.url }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+<div class="Personal">
+    <h1>Personal</h1>
+    <ul>
+        {% for post in site.posts %}
+        <li>
+            <span class="date">{{ post.date | date: '%Y %b %d' }}</span> - <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="Plausible">
+    <h1>Plausible</h1>
+    <ul>
+        {% for post in site.posts %}
+        <li>
+            <span class="date">{{ post.date | date: '%Y %b %d' }}</span> - <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="Projects">
+    <h1>Projects</h1>
+    <ul>
+        {% for post in site.posts %}
+        <li>
+            <span class="date">{{ post.date | date: '%Y %b %d' }}</span> - <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="Philosophical">
+    <h1>Philosophical</h1>
+    <ul>
+        {% for post in site.posts %}
+        <li>
+            <span class="date">{{ post.date | date: '%Y %b %d' }}</span> - <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="Pleasure">
+    <h1>Pleasure</h1>
+    <ul>
+        {% for post in site.posts %}
+        <li>
+            <span class="date">{{ post.date | date: '%Y %b %d' }}</span> - <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% include footer.html %}
