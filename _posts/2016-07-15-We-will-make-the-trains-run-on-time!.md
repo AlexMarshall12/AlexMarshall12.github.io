@@ -14,8 +14,11 @@ However, I am writing this because I realize how rare it STILL is! Companies are
 
 Visions don't need to be grand, but they sure can be. So why isn't an achievable sounding vision like "we will bring the real estate management industry into the 21rst century!" ever loved, but groaned at instead? Its not because its too hard or too easy. Its because 
 
+
 1. No one cares about it. Seriously. Explain how 21rst century real estate software in management firms matters to anyone. It could possibly matter to the workers at the managment offices but if they cared that much, they would fix it themselves. 
 2. Its not the true vision!
+
+
 
 The true vision was that the founders got together and saw a business opportunity in selling updated management software to real estate management firms. Such companies have a yearly budget for software that they need to fill and the SAAS business model here is ripe for the picking - repeat contracts till the end of time! Why in the world is this a bad thing? Its not. This is your vision statement. Say it, don't form a company and then ponder how to word a vision statement about bringing the real estate industry forward. Say what you mean! We are capitalizing on this business opportunity to make a hell of a lot of money for us and our investors. At least everyone is on the same page, and man is it great when everyone is on the same page. 
 

@@ -32,9 +32,13 @@ First we try learning through the use of SVG - we take advantage of the fact tha
 4. Fit a model to predict a solid color based on these features. Use colored svg polygons to train this model. 
 5. test the model
 
+##Step 1
+
 This approach would not have been possible without the fantastic PNG -> SVG tool that [Vector Magic](http://vectormagic.com/) provides. Step 1 was done entirely with this tool. 
 
-Steps 2 and 3 are seen in the svg_parse.py script in the github repo. The features chosen are 
+##Step 2 & 3
+
+The code for the extraction and feature engineering is found in the svg_parse.py script in the github repo. The features chosen are 
 
 * complexity - the length of the path
 * area
@@ -43,7 +47,10 @@ Steps 2 and 3 are seen in the svg_parse.py script in the github repo. The featur
 
 I considered adding a luminance feature which shows the lightness of the polygon but decided against considering how rarely a polygon is something other than black or white in uncolorized manga. 
 
-I also considered adding an index feature. Since each SVG is built in a layered manner, stacking shapes on top of each other, I figured background objects would have a lower index and be predisposed towards lighter colors. 
+I also considered adding an index feature. Since each SVG is built in a layered manner, stacking shapes on top of each other, I figured background objects would have a lower index and be predisposed towards lighter colors. However in each manga page, there are several different images in different areas, so its impossible to confirm that the ordering is done consistently across the entire picture in such a manner so I left this out. 
+
+Now, if you look at prior research <insert link>, you will see that a big problem with colorization is averaging. The average of the color spectrum is an unfortunate greyish brown and when a model is trying to predict a color while getting punished for wrong choices, it will basically just throw it's hands up and predict the middle of the road average in all cases just to minimize loss. We want to prevent this from happening. 
+
 
 Heres the bigun - 
 
@@ -100,4 +107,56 @@ s
  2 - storing straight up images and letting the pipeline worry about all the processing  - problem is how slow the pipeline is - good luck feeding in many images per batch
  3 - somewhere in the middle - store images in hdf5 but don't extract hypercolumns or classify colors until trianing time
 
- 
+![One Piece title]({{ site.url }}/assets/img/1000_0.png)
+![One Piece title]({{ site.url }}/assets/img/2000_0.png)
+![One Piece title]({{ site.url }}/assets/img/3000_0.png)
+![One Piece title]({{ site.url }}/assets/img/4000_0.png)
+![One Piece title]({{ site.url }}/assets/img/5000_0.png)
+![One Piece title]({{ site.url }}/assets/img/6000_0.png)
+![One Piece title]({{ site.url }}/assets/img/7000_0.png)
+![One Piece title]({{ site.url }}/assets/img/8000_0.png)
+![One Piece title]({{ site.url }}/assets/img/9000_0.png)
+![One Piece title]({{ site.url }}/assets/img/10000_0.png)
+![One Piece title]({{ site.url }}/assets/img/11000_0.png)
+![One Piece title]({{ site.url }}/assets/img/12000_0.png)
+![One Piece title]({{ site.url }}/assets/img/13000_0.png)
+![One Piece title]({{ site.url }}/assets/img/14000_0.png)
+![One Piece title]({{ site.url }}/assets/img/15000_0.png)
+![One Piece title]({{ site.url }}/assets/img/16000_0.png)
+![One Piece title]({{ site.url }}/assets/img/17000_0.png)
+![One Piece title]({{ site.url }}/assets/img/18000_0.png)
+![One Piece title]({{ site.url }}/assets/img/19000_0.png)
+![One Piece title]({{ site.url }}/assets/img/20000_0.png)
+![One Piece title]({{ site.url }}/assets/img/21000_0.png)
+![One Piece title]({{ site.url }}/assets/img/22000_0.png)
+![One Piece title]({{ site.url }}/assets/img/23000_0.png)
+![One Piece title]({{ site.url }}/assets/img/24000_0.png)
+![One Piece title]({{ site.url }}/assets/img/25000_0.png)
+![One Piece title]({{ site.url }}/assets/img/26000_0.png)
+![One Piece title]({{ site.url }}/assets/img/27000_0.png)
+![One Piece title]({{ site.url }}/assets/img/28000_0.png)
+![One Piece title]({{ site.url }}/assets/img/29000_0.png)
+![One Piece title]({{ site.url }}/assets/img/30000_0.png)
+![One Piece title]({{ site.url }}/assets/img/31000_0.png)
+![One Piece title]({{ site.url }}/assets/img/32000_0.png)
+![One Piece title]({{ site.url }}/assets/img/33000_0.png)
+![One Piece title]({{ site.url }}/assets/img/34000_0.png)
+![One Piece title]({{ site.url }}/assets/img/35000_0.png)
+![One Piece title]({{ site.url }}/assets/img/36000_0.png)
+![One Piece title]({{ site.url }}/assets/img/37000_0.png)
+
+
+
+
+
+
+
+
+ Steps in colornet: 
+
+
+ Here are the resulting images: 
+
+
+
+
