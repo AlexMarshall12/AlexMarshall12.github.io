@@ -107,6 +107,11 @@ s
  2 - storing straight up images and letting the pipeline worry about all the processing  - problem is how slow the pipeline is - good luck feeding in many images per batch
  3 - somewhere in the middle - store images in hdf5 but don't extract hypercolumns or classify colors until trianing time
 
+ Steps in colornet: 
+
+
+ Here are the resulting images: 
+
 ![One Piece title]({{ site.url }}/assets/img/1000_0.png)
 ![One Piece title]({{ site.url }}/assets/img/2000_0.png)
 ![One Piece title]({{ site.url }}/assets/img/3000_0.png)
@@ -147,15 +152,58 @@ s
 
 
 
+So you can see the results are...  not terrific. However, they aren't horrible. I am especially proud of the foot 4 images down. You can see that even though the color isn't right, at least its identifying the "leg" feature and realizing that it has to color that, rather than the white space around it for instance. 
+
+In summary, I'd say we are on the right track (its learning features!), however, we are facint two important issues. 
+
+1. The euclidian distance issue described above.. in our own custom architecture, I describe a plan of attack against this issue.
+2. Blacks are never colored. You can especially see this in the Kanji (lettering) where a black colored marking is supposedly bright red or purple to accent intensity, violence, suprise, etc. Note that in the case of black and white photographs for which this architecture was designed, this is fine. Black is supposed to stay black. HOwever, here, we are converting this to a black channel and trying to guess its a,b constituents, then converting it back into rbg to be shown. Predition of the black (luminance) channel is not something that the model covers. It assumes that the luminance will not change and for the lettering, this is not the case. It goes from 100% luminance(black) to 50% red. The only way we could forseeably pick this as well is to include this information in the prediction.
+
+Both of these issues are addressed below in our Custom Model
+
+#Custom Model
+
+
+OK
+
+
+woot woot! I'm finally training. However, my loss is going NOWHWERE fast. its hovering at 4850, seemingly no matter what sample I try it on. 
+
+![One Piece title]({{ site.url }}/assets/img/training-loss-on-1000-samples.png)
+
+Here I have tried 3 different optimizers - sgd with a learning rate of 0.001, momentum of 0.9 and nesterov enabled, adadelta, and adam. 
+
+All 3 seem to run into the same basic bottleneck at the same point, leading me to avoid trying even more different optimizers. 
+
+
+However, in the wisdom of IRC, a very helpful member, johnflux, metioned that this model was simply more complex than it should be -- toooooo much data. According to him, I need about an average of 10 samples per feature I wish to train - INCREDIBLY USEFUL information if true. Because I am a noob, I decided to trust him. In any case, everyhting I see online indeed suggests this - much larger batch sizes - smaller samples basically. 
+
+
+I need to simplify this whole thing. Currently, this model has 48 million features and 880 parameters to train. That amounts to 500 million training examples. I have 300,000 so no bueno. 
+
+
+Thus, simplify we can and must! Ok so to do this, there are several possibilities
+
+1. remove hypercolumns
+2. reduce image size. This would add a benefit of increasing number of samples. However I am worried about the patching issue described above
+3. remove layers from our colorization network.
+
+I ended up doing all 3. YOLO. I resized each image down from 224x224 to 50x50 effectively reducing the number of input features by a ratio of 50174/2500 or 18.1. 
+
+![One Piece title]({{ site.url }}/assets/img/ship-224px.png)
+
+![One Piece title]({{ site.url }}/assets/img/ship-50px.png)
+
+original image (left) and scaled image (right). Note obviously the lack of detail on the right. This is an especially detailed image however, so usually it won't be this bad. 
+
+I also only used hypercolumns 8 and 15 after some deliberation. I only wanted 2 layers. Since as you move forward through the network, the hypercolumns give increasingly semantic rather than location specific information, Thus I want the earlier layers as i am interested in pixel specific coloring. So not 22. Then I picked 8 and 15 rather than 3 and 15 as 3 just seems a bit too early to give useful information, especially if it was one of only 2 hypercolumns. 
+
+Finally, removing layers from the colorization network basically came with the territory. 
 
 
 
 
-
- Steps in colornet: 
-
-
- Here are the resulting images: 
+ 
 
 
 
