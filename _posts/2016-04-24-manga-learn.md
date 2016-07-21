@@ -203,7 +203,8 @@ Finally, removing layers from the colorization network basically came with the t
 
 
 
- 
+ ![One Piece title]({{ site.url }}/assets/img/Architecture.png)
+
 
 
 
