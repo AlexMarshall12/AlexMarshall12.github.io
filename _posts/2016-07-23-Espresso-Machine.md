@@ -4,7 +4,7 @@ title: Coffee Capsule!
 category: projects
 ---
 
-<img src="http://alexmarshall12.github.io/assets/img/espresso2.jpg" width="500" style="text-align:center;">
+<img src="http://alexmarshall12.github.io/assets/img/espresso2.jpg" width="500" style="margin-left:auto;margin-right:auto">
 
 
 
