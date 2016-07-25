@@ -5,6 +5,8 @@ category: projects
 ---
 
 <img src="http://alexmarshall12.github.io/assets/img/espresso2.jpg" width="48">
+<img src="http://alexmarshall12.github.io/assets/img/espresso2.jpg" alt="Drawing" style="width: 200px;"/>
+
 
 Mmmmmm espresso. Delightful and suprisingly hard to make. But where theres a will, theres a way. Say you want a cup of this for yourself. Lets checkout some of your options in making one. 
 
