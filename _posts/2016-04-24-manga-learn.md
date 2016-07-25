@@ -25,7 +25,7 @@ There have been a number of previous attempts to do this, divided into 2 categor
 Manga is often auto-colored via this technique. A section is manually colored and a "bucket fill algorithm is used
 Machine learning auto-colorization techniques are often pixel based. They work on real life jpgs.
 
-##First attempt - polygons
+# SVG approach #
 
 First we try learning through the use of SVG - we take advantage of the fact that manga has larger and more distinct shapes, as well as more solid and uniform colors than black and white photograph images. To put it specifically, for each page of manga, we
 
@@ -35,11 +35,11 @@ First we try learning through the use of SVG - we take advantage of the fact tha
 4. Fit a model to predict a solid color based on these features. Use colored svg polygons to train this model. 
 5. test the model
 
-##Step 1
+## Step 1 ##
 
 This approach would not have been possible without the fantastic PNG -> SVG tool that [Vector Magic](http://vectormagic.com/) provides. Step 1 was done entirely with this tool. 
 
-##Step 2 & 3
+## Step 2 & 3 ##
 
 The code for the extraction and feature engineering is found in the svg_parse.py script in the github repo. The features chosen are 
 
@@ -64,11 +64,13 @@ Clearly not good - in fact the color choice seems almost random rather than base
 
 Meanwhile, reading more about machine learning colorization has confirmed this belief as well as pointed me in the direction of pixel based neural networks
 
-##Neural Networks
+# Neural Networks #
 
 Neural Networks, specifically Convolutional Deep neural netowrks have recently improved image classification and object recognition drastically as compared to other image processing methods. 
 
 Research has shown that they can also be used to predict the color of pixels. A large contributing factor to this ability is the fact that they identify features in the image on various layers of the network. Earlier layers may detect specific features such as edges, while middle layers may detect objects such as luffy's hat, and the final layers may detect the differences between the boxes - in a best case scenarios of course, but this is the idea at least. 
+
+## Pre-trained model ##
 
 By far, the paper I drew the most inspiration from is Richard Zhang's [Colorful Image Colorization](http://richzhang.github.io/colorization/). To begin with, I fed my manga images through his trained network that he graciously put on github for people to try. You can see the result below
 
@@ -77,6 +79,9 @@ Not great... This is not totally unexpected of course - as his network was train
 
 
 Unfortunately the code that richard uses to train his network is not online and even if it was, I question whether I could get it to work with caffe - I had a hard enough time just installing it to test the completed model. 
+
+
+## Training the colornet architecture with manga images ##
 
 Luckily, there are other colorization networks online that use tensorflow - something which I can install and have used before. One such network is well described here: [Automatic Colorization](http://tinyclouds.org/colorize/) with code here: https://github.com/pavelgonchar/colornet. 
 
@@ -139,7 +144,7 @@ Most of the time, its just kind of a bland brownish grey. There are 2 reasons fo
 For this, we go back to Richard Zhang's approach. He mentions this issue in his paper and comes up with an execellent workaround. Istead of treating this as a regression problem, we will quantize the output color space and thus the task become classifying each pixel into one of these quantized color bins. Specifically, our task is to predict a probability distribution for each pixel of the image where each probability is the likelyhood of it belonging to a particular bin. We then select the most likely bin and color the pixel as such. This way, rather than judging each guess as "correct" or "incorrect", we can jugde a guess by its predictive power against each bin. This type of evaluation gives an optimizer much more information for it to improve the next time around.
 
 
-##My Model
+## Custom Model ##
 
 My model borrows heavily from both richard's and the colornet model from pavelgonchar. Here is its architecture:
 
@@ -201,7 +206,7 @@ loss function issues - multimodal regression :(
 	 categorization - but it has to be special - soft encoding using k nearest neighbors
 
 
-what I learned: 
+# Retrospective #
 
 break it down man - thats why you use the generated images.... 
 
