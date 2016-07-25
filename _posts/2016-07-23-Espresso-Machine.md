@@ -4,7 +4,7 @@ title: Coffee Capsule!
 category: projects
 ---
 
-![One Piece title]({{ site.url }}/assets/img/espresso2.jpg =500x)
+<img src="http://alexmarshall12.github.io/assets/img/espresso2.jpg" width="48">
 
 Mmmmmm espresso. Delightful and suprisingly hard to make. But where theres a will, theres a way. Say you want a cup of this for yourself. Lets checkout some of your options in making one. 
 
@@ -27,8 +27,7 @@ Boiling water on the bottom is forced through the coffee and bubbles over into t
 
 3. Homemade Espresso machines. 
 
-
-![One Piece title]({{ site.url }}/assets/img/espresso-home.jpg =250x)
+<img src="http://alexmarshall12.github.io/assets/img/espresso-home.jpg" width="48">
 
 These have the same idea as the coffee shop quality machines and make a noble effort to achieve the same results but are unfortunately bound by the price points of a consumer - not a coffee shop. The truth is, espresso is darn hard to make. Those coffee shop quality machines are big and expensive for a reason....
 
