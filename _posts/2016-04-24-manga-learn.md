@@ -3,8 +3,10 @@ layout: post
 title: Manga Learn!
 category: projects
 ---
+* TOC
+{:toc}
 
-#Why Manga?
+# Why Manga?
 
 Manga (漫画 Manga) are comics created in Japan, or by creators in the Japanese language, conforming to a style developed in Japan in the late 19th century.[1] They have a long and complex pre-history in earlier Japanese art.
 Manga stories are typically printed in black-and-white,[9] although some full-color manga exist (e.g., Colorful). Colorization of Manga is usually done after it is released in black and white format. This is often avoided because colorization is time-consuming.
@@ -53,12 +55,12 @@ I also considered adding an index feature. Since each SVG is built in a layered 
 
 As a first cut, I decided to run a linear regression prediction using those 5 features and the 'r','g','b' values as output labels. You can see the code in the linear_regression.py file on github.
 
-Unfortunately, if you run this code, you will see that the model doesn't perform very well on test data. I get a score of . As mentioned in the introduction, one cool aspect of this dataset is that we can evaluate it visually. Note that the linear_regression.py script colors in a test svg with the predicted colors. See the result below...
+Unfortunately, if you run this code, you will see that the model doesn't perform very well on test data. I get a score of 0.0164566366493. As mentioned in the introduction, one cool aspect of this dataset is that we can evaluate it visually. Note that the linear_regression.py script colors in a test svg with the predicted colors. See the result below...
 
 
 ![One Piece title]({{ site.url }}/assets/img/best_guess.png)
 
-Clearly not perfect - in fact the color choice seems almost random rather than based on the polygon features like we'd hoped. We could pour more time into improving this model, or perhaps using a random forest regression predictor. Addtionally, we could quantize the output color space into bins and attempt classification instead. These are all valid directions, however I believe the large issue at this point is our feature selection. The polygon itself includes no information about the scene its in, the context of the image, surrouding objects, etc - all things which I believe are necessary to predict the color. 
+Clearly not good - in fact the color choice seems almost random rather than based on the polygon features like we'd hoped. We could pour more time into improving this model, or perhaps using a random forest regression predictor. Addtionally, we could quantize the output color space into bins and attempt classification instead. These are all valid directions, however I believe the large issue at this point is our feature selection. The polygon itself includes no information about the scene its in, the context of the image, surrouding objects, etc - all things which I believe are necessary to predict the color. 
 
 Meanwhile, reading more about machine learning colorization has confirmed this belief as well as pointed me in the direction of pixel based neural networks
 
@@ -130,13 +132,12 @@ Again, not terrific results, but only 10,000 images were used. I do think its ne
 
 Most of the time, its just kind of a bland brownish grey. There are 2 reasons for this. 
 
-1. We didn't train enough images - no question about it. To truly test this model, we should put all of our manga images into the model. The fact that it can detect features such as feet while not knowing what colors to use is further testament to this. Since the object segmentations/recognition piece has essentially already been trained when use use the VGG16 weights, it makes sense that it would be good at this part while failing at the colorization part. It simply hasn't seen enough examples to know what color a foot should be. This is clearly an avoidable problem - we simply need to feed it more data!
+1. We didn't train enough images - no question about it. To truly test this model, we should put all of our manga images into the model. The fact that it can detect features such as feet while not knowing what colors to use is further testament to this. Since the object segmentations/recognition piece has essentially already been trained when we use the VGG16 weights, it makes sense that it would be good at this part while failing at the colorization part. It simply hasn't seen enough examples to know what color a foot should be. This is clearly an avoidable problem - we simply need to feed it more data!
 
 2. The linear nature of a color space and our error function mean that when the model is trying to minimize the loss, it simply guesses the middle of the road - brownish grey. Even if a shape is perfectly recognized as a flag for instance, pure blue is very far away from pure red in euclidean terms which the optimizer uses to judge correctness. Middle of the road greyish brown is relatively close to every true color just because it is in the middle of the color space. Thus when our poor model is trying to predict a flag to be blue or red (both reasonable choices), it learns to throw up its hands and guess greyish brown every time because this minimizes the penalization it sees for each wrong guess. This is a more worrysome issue than the one described above. No matter how many images we train, greyish brown will remain a reasonable choice for a model to guess over and over again. Thus, perhaps a change in achitecture is afoot!
 
-For this, we go back to Richard Zhang's approach. He mentions this issue in his paper and comes up with 2 execellent workarounds. First of all, instead of treating this as a regression problem, we will quantize the output color space and thus the task become classifying each pixel into one of these quantized color bins. Specifically, our task is to predict a probability distribution for each pixel of the image where each probability is the likelyhood of it belonging to a particular bin. We then select the most likely bin and color the pixel as such. This way, rather than judging each guess as "correct" or "incorrect", we can jugde a guess by its predictive power against each bin. This type of evaluation gives an optimizer much more information for it to improve the next time around.
+For this, we go back to Richard Zhang's approach. He mentions this issue in his paper and comes up with an execellent workaround. Istead of treating this as a regression problem, we will quantize the output color space and thus the task become classifying each pixel into one of these quantized color bins. Specifically, our task is to predict a probability distribution for each pixel of the image where each probability is the likelyhood of it belonging to a particular bin. We then select the most likely bin and color the pixel as such. This way, rather than judging each guess as "correct" or "incorrect", we can jugde a guess by its predictive power against each bin. This type of evaluation gives an optimizer much more information for it to improve the next time around.
 
-Richard goes further to weight each guess by its "rarity". If the model is thinking about predicting neon pink for instance, we would prefer it to "go with its gut", to "shoot for the stars" and guess neon pink than to simply hazard another greyish brown guess. Thus outlandish guesses are counted towards the total loss less than common guesses. For our first attempt, we will leave this out though adding it to the loss function may be necessary if the greyish brown trend continues...
 
 ##My Model
 
@@ -188,8 +189,6 @@ This reduces my network down to about 1.1 million parameters. When we train agai
 ![One Piece title]({{ site.url }}/assets/img/batch-64.png)
 
 
-
-
 You've probably noticed t
 
 Heres the bigun - 
@@ -215,7 +214,6 @@ I rank this as a "BIG" challenge. many times when I thought I would just give up
 
 
 big question: 
-s
 
 1. svg
 2. tensorflow
