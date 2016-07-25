@@ -212,62 +212,17 @@ loss function issues - multimodal regression :(
 
 # Retrospective #
 
-break it down man - thats why you use the generated images.... 
 
-stick to 1 damn strategy! Just carry it out - if you are gonna use keras, do it, if you are gonna copy someone elses strategy, do that. Don't bounce back and forth. 
+Since this is my first time working with neural networks, and first non-kaggle machine learning project (where I can't copy from others), I figured I should write down some things I've noticed/learned.
 
-I rank this as a "BIG" challenge. many times when I thought I would just give up. update tbd....
+1. Learn from others! My first attempts at SVG based processing were not a waste at all - in fact I might try them again. However, reading more on the prior art first would have given me invaluable information about feature selection and algorithm selection/strategy. Apparently, machine learning is more than just throwing classifiers at data! :p
 
+2. Working with massive amounts of data was by far the most time consuming part. Also the most metally taxing part. By the time I actually had input data and labels and was running the neural networks, it felt like a huge relief. Slicing that many images, moving them around, worrying about the size, worrying about memory issues, connection speeds when uploading and downloading them, GPU tax - everything takes time. You have to strategize. You'll want to start certain processes before you go to sleep so that you don't waste time in the morning seeing as they take several hours. This is not a "solvable" problem either. It doesn't go away - you just have to work around it in certain ways. HDF5 is a neat tool but its just another step in the chain of things you have do to prep the data. Unfortunately this also means that you are incentized to train with less data. If you look at everything I tried above, you'll see a pattern that results could have been better with more data. However, its a tradeoff. You can't keep throwing time at a problem, at least not until its proven to be worth it. A better computer can help a lot. I always figured comptuers were as fast as they needed to be until I tried my hand at machine learning. Apparently they have a ways to go.
 
-1 interesting thing to learn - the tiling of pieces. 100x100 vs 224x224. which one is better? No prior art.
-
-
-big question: 
-
-1. svg
-2. tensorflow
-   reshaping to 224 224
-    image_slicer 
-      adding black space on the side? - that way black can't get converted with bad color...
-3. keras
-   setup
+3. AWS is the second best thing you can do if you wish to solve machine learning problems. The best is to buy your own computer. 2.2xlarge gpu instances are a lot better than a macbook pro laptop (yep I did attempt this), but getting the data onto them and installing everything is a serious PIA. For instance, the current version of tensorflow only works with newer graphics cards than the ones provided by amazon. It also means that every time you add more data, you have to go through the process of uploading it, transfering it, downloading it, etc. Ive done seperate parts of this project on a total of 4 computers (not counting the many many ec2 instances I tried to get things running on intially). Every time you add another computer to the mix, you are increasing the complexity of your workflow. 1 computer would have been the way to go. 
 
 
-   its alllll in the pre-processing. my architecture probably does suck. big leaps in accuracy are from me copying richard zhang's preprocessing - KNN softmax so that categories are close together
-   
-
-
-   big ass problem - dealing with that much damn data - apparently image compression is fucking badass - 10 Ive heard but it seems like more. 
-
-   these were some big momma arrays. at first I tried to store everything in hdf5 but clearly that was not the way to go - only 800 images of space. 
-
-   So I had to put VGG back into the pre-processing step.... good thing I commited that to github. 
-
-
-
-
- GOD DAMMIT - the whole into hdf5 nightmare and then back into images again
- taight me a lot about working with arrays = numpy which really really helps
-
-
- 3 seperate branches - 1 totally processes everything and stores it first - problem is the size of the files - you just don't get that many images
- 2 - storing straight up images and letting the pipeline worry about all the processing  - problem is how slow the pipeline is - good luck feeding in many images per batch
- 3 - somewhere in the middle - store images in hdf5 but don't extract hypercolumns or classify colors until trianing time
-
- Steps in colornet: 
-
-
- Here are the resulting images: 
-
-
-
-
-So you can see the results are...  not terrific. However, they aren't horrible. I am especially proud of the foot 4 images down. You can see that even though the color isn't right, at least its identifying the "leg" feature and realizing that it has to color that, rather than the white space around it for instance. 
-
-In summary, I'd say we are on the right track (its learning features!), however, we are facint two important issues. 
-
-1. The euclidian distance issue described above.. in our own custom architecture, I describe a plan of attack against this issue.
-2. Blacks are never colored. You can especially see this in the Kanji (lettering) where a black colored marking is supposedly bright red or purple to accent intensity, violence, suprise, etc. Note that in the case of black and white photographs for which this architecture was designed, this is fine. Black is supposed to stay black. HOwever, here, we are converting this to a black channel and trying to guess its a,b constituents, then converting it back into rbg to be shown. Predition of the black (luminance) channel is not something that the model covers. It assumes that the luminance will not change and for the lettering, this is not the case. It goes from 100% luminance(black) to 50% red. The only way we could forseeably pick this as well is to include this information in the prediction.
+4. Blacks are never colored. You can especially see this in the Kanji (lettering) where a black colored marking is supposedly bright red or purple to accent intensity, violence, suprise, etc. Note that in the case of black and white photographs for which this architecture was designed, this is fine. Black is supposed to stay black. HOwever, here, we are converting this to a black channel and trying to guess its a,b constituents, then converting it back into rbg to be shown. Predition of the black (luminance) channel is not something that the model covers. It assumes that the luminance will not change and for the lettering, this is not the case. It goes from 100% luminance(black) to 50% red. The only way we could forseeably pick this as well is to include this information in the prediction.
 
 
 
