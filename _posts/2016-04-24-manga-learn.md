@@ -35,7 +35,9 @@ First we try learning through the use of SVG - we take advantage of the fact tha
 4. Fit a model to predict a solid color based on these features. Use colored svg polygons to train this model. 
 5. test the model
 
-## Step 1 ##
+
+
+## Step  ##
 
 This approach would not have been possible without the fantastic PNG -> SVG tool that [Vector Magic](http://vectormagic.com/) provides. Step 1 was done entirely with this tool. 
 
@@ -52,6 +54,8 @@ The code for the extraction and feature engineering is found in the svg_parse.py
 I considered adding a luminance feature which shows the lightness of the polygon but decided against considering how rarely a polygon is something other than black or white in uncolorized manga. 
 
 I also considered adding an index feature. Since each SVG is built in a layered manner, stacking shapes on top of each other, I figured background objects would have a lower index and be predisposed towards lighter colors. However in each manga page, there are several different images in different areas, so its impossible to confirm that the ordering is done consistently across the entire picture in such a manner so I left this out. 
+
+## Step 4  & 5 ##
 
 As a first cut, I decided to run a linear regression prediction using those 5 features and the 'r','g','b' values as output labels. You can see the code in the linear_regression.py file on github.
 
