@@ -37,7 +37,7 @@ First we try learning through the use of SVG - we take advantage of the fact tha
 
 
 
-## Step  ##
+## Step 1 ##
 
 This approach would not have been possible without the fantastic PNG -> SVG tool that [Vector Magic](http://vectormagic.com/) provides. Step 1 was done entirely with this tool. 
 
@@ -194,8 +194,8 @@ Finally, removing layers from the colorization network basically came with the t
 
 This reduces my network down to about 1.1 million parameters. When we train again....
 
-![One Piece title]({{ site.url }}/assets/img/smaller-model-loss.png)
-![One Piece title]({{ site.url }}/assets/img/batch-64.png)
+![One Piece title]({{ site.url }}/assets/img/smaller-model-loss.png){: .center-image }
+![One Piece title]({{ site.url }}/assets/img/batch-64.png){: .center-image }
 
 
 You've probably noticed t
