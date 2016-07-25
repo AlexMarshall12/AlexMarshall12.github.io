@@ -22,7 +22,6 @@ Prior art.
 There have been a number of previous attempts to do this, divided into 2 categories:
 Manga is often auto-colored via this technique. A section is manually colored and a "bucket fill algorithm is used
 Machine learning auto-colorization techniques are often pixel based. They work on real life jpgs.
-This is an attempt to combine the two approaches.
 
 ##First attempt - polygons
 
@@ -42,7 +41,8 @@ This approach would not have been possible without the fantastic PNG -> SVG tool
 
 The code for the extraction and feature engineering is found in the svg_parse.py script in the github repo. The features chosen are 
 
-* complexity - the length of the path
+* complexity
+* length
 * area
 * lines - number of straight lines
 * curves - number of curved segments
@@ -51,8 +51,146 @@ I considered adding a luminance feature which shows the lightness of the polygon
 
 I also considered adding an index feature. Since each SVG is built in a layered manner, stacking shapes on top of each other, I figured background objects would have a lower index and be predisposed towards lighter colors. However in each manga page, there are several different images in different areas, so its impossible to confirm that the ordering is done consistently across the entire picture in such a manner so I left this out. 
 
-Now, if you look at prior research <insert link>, you will see that a big problem with colorization is averaging. The average of the color spectrum is an unfortunate greyish brown and when a model is trying to predict a color while getting punished for wrong choices, it will basically just throw it's hands up and predict the middle of the road average in all cases just to minimize loss. We want to prevent this from happening. 
+As a first cut, I decided to run a linear regression prediction using those 5 features and the 'r','g','b' values as output labels. You can see the code in the linear_regression.py file on github.
 
+Unfortunately, if you run this code, you will see that the model doesn't perform very well on test data. I get a score of . As mentioned in the introduction, one cool aspect of this dataset is that we can evaluate it visually. Note that the linear_regression.py script colors in a test svg with the predicted colors. See the result below...
+
+
+![One Piece title]({{ site.url }}/assets/img/best_guess.png)
+
+Clearly not perfect - in fact the color choice seems almost random rather than based on the polygon features like we'd hoped. We could pour more time into improving this model, or perhaps using a random forest regression predictor. Addtionally, we could quantize the output color space into bins and attempt classification instead. These are all valid directions, however I believe the large issue at this point is our feature selection. The polygon itself includes no information about the scene its in, the context of the image, surrouding objects, etc - all things which I believe are necessary to predict the color. 
+
+Meanwhile, reading more about machine learning colorization has confirmed this belief as well as pointed me in the direction of pixel based neural networks
+
+##Neural Networks
+
+Neural Networks, specifically Convolutional Deep neural netowrks have recently improved image classification and object recognition drastically as compared to other image processing methods. 
+
+Research has shown that they can also be used to predict the color of pixels. A large contributing factor to this ability is the fact that they identify features in the image on various layers of the network. Earlier layers may detect specific features such as edges, while middle layers may detect objects such as luffy's hat, and the final layers may detect the differences between the boxes - in a best case scenarios of course, but this is the idea at least. 
+
+By far, the paper I drew the most inspiration from is Richard Zhang's [Colorful Image Colorization](http://richzhang.github.io/colorization/). To begin with, I fed my manga images through his trained network that he graciously put on github for people to try. You can see the result below
+
+
+Not great... This is not totally unexpected of course - as his network was trained on photographs as opposed to manga pictures. I believe it has a difficult time because such large white spaces are not in photographs whereas in manga they are pretty much the majority of the page - and are exactly what we are trying to color. Thus in immitating his methods, we are taking a leap of faith that the failure of this test is due to a lack of training on the right features, rather than a fundamental difference between photography and animation which prevents learning with such an architecture from being successful in the later case. If this makes us uneasy, let us shelve our discomfort for now and revist at a later time :). 
+
+
+Unfortunately the code that richard uses to train his network is not online and even if it was, I question whether I could get it to work with caffe - I had a hard enough time just installing it to test the completed model. 
+
+Luckily, there are other colorization networks online that use tensorflow - something which I can install and have used before. One such network is well described here: [Automatic Colorization](http://tinyclouds.org/colorize/) with code here: https://github.com/pavelgonchar/colornet. 
+
+A notable difference between this architecture and other colorization architectures is that this uses the popular VGG16 network weights for feature identification. It feeds images forward through this network and then extracts the "hypercolumns" which give summary activations at various layers. These hypercolumns are then fed as features into the colorization half of the network. This essentially saves you the trouble of training the feature identification yourself. 
+
+To start with I fed 10,000 images through the network. Because the network accepts 224 x 224 image sizes, I had to slice my manga pages into seperate squares. Since my  1200 x 780 pages don't quite chop up nicely, I ended up centering each page onto a 1344 x 1344 black backdrop and chopping this into 36 equal 224 x 224 squares. Thus there are some squares that are only black and others which have large black borders. The all black squares are thrown away and not used for training. The partially black ones are used for training. 
+
+Its important to note one potential drawback of this method is that since these squares must be stiched together again after the color is predicted, a difference in their edges will be apparent in the resulting colorized manga page. I haven't determined how big of an issue this will be. There are a couple of ways we might avoid this but for now, we are going to turn a blind eye to this problem as well. This is a research project remember! Perfection is not required :)
+
+ Below are some test images taken at various stages of training. On the left is the black and white input image, the middle is the model's predicted colorization, and the right is the true colorization
+
+
+![One Piece title]({{ site.url }}/assets/img/1000_0.png)
+![One Piece title]({{ site.url }}/assets/img/2000_0.png)
+![One Piece title]({{ site.url }}/assets/img/3000_0.png)
+![One Piece title]({{ site.url }}/assets/img/4000_0.png)
+![One Piece title]({{ site.url }}/assets/img/5000_0.png)
+![One Piece title]({{ site.url }}/assets/img/6000_0.png)
+![One Piece title]({{ site.url }}/assets/img/7000_0.png)
+![One Piece title]({{ site.url }}/assets/img/8000_0.png)
+![One Piece title]({{ site.url }}/assets/img/9000_0.png)
+![One Piece title]({{ site.url }}/assets/img/10000_0.png)
+![One Piece title]({{ site.url }}/assets/img/11000_0.png)
+![One Piece title]({{ site.url }}/assets/img/12000_0.png)
+![One Piece title]({{ site.url }}/assets/img/13000_0.png)
+![One Piece title]({{ site.url }}/assets/img/14000_0.png)
+![One Piece title]({{ site.url }}/assets/img/15000_0.png)
+![One Piece title]({{ site.url }}/assets/img/16000_0.png)
+![One Piece title]({{ site.url }}/assets/img/17000_0.png)
+![One Piece title]({{ site.url }}/assets/img/18000_0.png)
+![One Piece title]({{ site.url }}/assets/img/19000_0.png)
+![One Piece title]({{ site.url }}/assets/img/20000_0.png)
+![One Piece title]({{ site.url }}/assets/img/21000_0.png)
+![One Piece title]({{ site.url }}/assets/img/22000_0.png)
+![One Piece title]({{ site.url }}/assets/img/23000_0.png)
+![One Piece title]({{ site.url }}/assets/img/24000_0.png)
+![One Piece title]({{ site.url }}/assets/img/25000_0.png)
+![One Piece title]({{ site.url }}/assets/img/26000_0.png)
+![One Piece title]({{ site.url }}/assets/img/27000_0.png)
+![One Piece title]({{ site.url }}/assets/img/28000_0.png)
+![One Piece title]({{ site.url }}/assets/img/29000_0.png)
+![One Piece title]({{ site.url }}/assets/img/30000_0.png)
+![One Piece title]({{ site.url }}/assets/img/31000_0.png)
+![One Piece title]({{ site.url }}/assets/img/32000_0.png)
+![One Piece title]({{ site.url }}/assets/img/33000_0.png)
+![One Piece title]({{ site.url }}/assets/img/34000_0.png)
+![One Piece title]({{ site.url }}/assets/img/35000_0.png)
+![One Piece title]({{ site.url }}/assets/img/36000_0.png)
+![One Piece title]({{ site.url }}/assets/img/37000_0.png)
+
+
+Again, not terrific results, but only 10,000 images were used. I do think its neat that you can see it start to recognize features. For instance, the 3rd image shows that a foot is colored in. The model realized that the foot, not the surrounding white areas is what is supposed to be colored. You can see this in many places where the right object is being colored but it the wrong color. 
+
+Most of the time, its just kind of a bland brownish grey. There are 2 reasons for this. 
+
+1. We didn't train enough images - no question about it. To truly test this model, we should put all of our manga images into the model. The fact that it can detect features such as feet while not knowing what colors to use is further testament to this. Since the object segmentations/recognition piece has essentially already been trained when use use the VGG16 weights, it makes sense that it would be good at this part while failing at the colorization part. It simply hasn't seen enough examples to know what color a foot should be. This is clearly an avoidable problem - we simply need to feed it more data!
+
+2. The linear nature of a color space and our error function mean that when the model is trying to minimize the loss, it simply guesses the middle of the road - brownish grey. Even if a shape is perfectly recognized as a flag for instance, pure blue is very far away from pure red in euclidean terms which the optimizer uses to judge correctness. Middle of the road greyish brown is relatively close to every true color just because it is in the middle of the color space. Thus when our poor model is trying to predict a flag to be blue or red (both reasonable choices), it learns to throw up its hands and guess greyish brown every time because this minimizes the penalization it sees for each wrong guess. This is a more worrysome issue than the one described above. No matter how many images we train, greyish brown will remain a reasonable choice for a model to guess over and over again. Thus, perhaps a change in achitecture is afoot!
+
+For this, we go back to Richard Zhang's approach. He mentions this issue in his paper and comes up with 2 execellent workarounds. First of all, instead of treating this as a regression problem, we will quantize the output color space and thus the task become classifying each pixel into one of these quantized color bins. Specifically, our task is to predict a probability distribution for each pixel of the image where each probability is the likelyhood of it belonging to a particular bin. We then select the most likely bin and color the pixel as such. This way, rather than judging each guess as "correct" or "incorrect", we can jugde a guess by its predictive power against each bin. This type of evaluation gives an optimizer much more information for it to improve the next time around.
+
+Richard goes further to weight each guess by its "rarity". If the model is thinking about predicting neon pink for instance, we would prefer it to "go with its gut", to "shoot for the stars" and guess neon pink than to simply hazard another greyish brown guess. Thus outlandish guesses are counted towards the total loss less than common guesses. For our first attempt, we will leave this out though adding it to the loss function may be necessary if the greyish brown trend continues...
+
+##My Model
+
+My model borrows heavily from both richard's and the colornet model from pavelgonchar. Here is its architecture:
+
+
+ ![One Piece title]({{ site.url }}/assets/img/Architecture.png)
+
+
+As you can see, I am using the LAB colorspace. For each image, I break it into its L and a,b consitutents. The a,b is converted into a 112 bin color probability distribution and fed in as the labels. The L (luminance) becomes the input black and white image. This image is fed into VGG16 and hypecolumns are extracted after the 8th and 15th layer - both pooling layers. 
+
+These hypercolumns are fed into a simple colorization network. 
+
+Here is the loss after the first attempt, tried with 3 different optimizers - sgd with a learning rate of 0.001, momentum of 0.9 and nesterov enabled, adadelta, and adam. 
+
+unfortunately, its hovering at 4850, seemingly no matter what sample I try it on. 
+
+![One Piece title]({{ site.url }}/assets/img/training-loss-on-1000-samples.png)
+
+All 3 seem to run into the same basic bottleneck at the same point, leading me to avoid trying even more different optimizers. 
+
+At this point in the project, I have 2 conflicting emotions. First of all, pride. I am finally training my own custom network! Uncharted waters. No one has ever tried to solve this problem in the way that I am doing it now. This really feels like Im finally doing machine learning. 2nd, I feel overwhelmed. There are no guidelines for solving this type of problem. Uncharted waters are like that. 
+
+My first move is to simplify the network. Input features with size (n_samples,960,224,224) are MASSIVE in comparsion to most neural networks. The conical architecture where the data block is reduced each at each step is also unusual from what I've seen. Thus, in an effort to conform, I think reducing the scale of the whole thing is a good step. 
+
+ My current model is sitting at around 5,800,000 parameters. I have a total of 300,000 sample images to work with
+
+In order to simplify this model, there are several possibilities
+
+1. remove hypercolumns
+2. reduce image size. This would add a benefit of increasing number of samples. However I am worried about the patching issue described above
+3. remove layers from our colorization network.
+
+I ended up doing all 3. I resized each image down from 224x224 to 50x50 effectively reducing the number of input features by a ratio of 50174/2500 or 18.1. 
+
+![One Piece title]({{ site.url }}/assets/img/ship-224px.png)
+
+![One Piece title]({{ site.url }}/assets/img/ship-50px.png)
+
+original image (above) and scaled image (below). Note obviously the lack of detail on the right. This is an especially detailed image however, so usually it won't be this bad. 
+
+I also only used hypercolumns 8 and 15 after some deliberation. I only wanted 2 layers. Since as you move forward through the network, the hypercolumns give increasingly semantic rather than location specific information, Thus I want the earlier layers as i am interested in pixel specific coloring. So not 22. Then I picked 8 and 15 rather than 3 and 15 as 3 just seems a bit too early to give useful information, especially if it was one of only 2 hypercolumns. 
+
+Finally, removing layers from the colorization network basically came with the territory. 
+
+This reduces my network down to about 1.1 million parameters. When we train again....
+
+![One Piece title]({{ site.url }}/assets/img/smaller-model-loss.png)
+![One Piece title]({{ site.url }}/assets/img/batch-64.png)
+
+
+
+
+You've probably noticed t
 
 Heres the bigun - 
 
@@ -114,43 +252,6 @@ s
 
  Here are the resulting images: 
 
-![One Piece title]({{ site.url }}/assets/img/1000_0.png)
-![One Piece title]({{ site.url }}/assets/img/2000_0.png)
-![One Piece title]({{ site.url }}/assets/img/3000_0.png)
-![One Piece title]({{ site.url }}/assets/img/4000_0.png)
-![One Piece title]({{ site.url }}/assets/img/5000_0.png)
-![One Piece title]({{ site.url }}/assets/img/6000_0.png)
-![One Piece title]({{ site.url }}/assets/img/7000_0.png)
-![One Piece title]({{ site.url }}/assets/img/8000_0.png)
-![One Piece title]({{ site.url }}/assets/img/9000_0.png)
-![One Piece title]({{ site.url }}/assets/img/10000_0.png)
-![One Piece title]({{ site.url }}/assets/img/11000_0.png)
-![One Piece title]({{ site.url }}/assets/img/12000_0.png)
-![One Piece title]({{ site.url }}/assets/img/13000_0.png)
-![One Piece title]({{ site.url }}/assets/img/14000_0.png)
-![One Piece title]({{ site.url }}/assets/img/15000_0.png)
-![One Piece title]({{ site.url }}/assets/img/16000_0.png)
-![One Piece title]({{ site.url }}/assets/img/17000_0.png)
-![One Piece title]({{ site.url }}/assets/img/18000_0.png)
-![One Piece title]({{ site.url }}/assets/img/19000_0.png)
-![One Piece title]({{ site.url }}/assets/img/20000_0.png)
-![One Piece title]({{ site.url }}/assets/img/21000_0.png)
-![One Piece title]({{ site.url }}/assets/img/22000_0.png)
-![One Piece title]({{ site.url }}/assets/img/23000_0.png)
-![One Piece title]({{ site.url }}/assets/img/24000_0.png)
-![One Piece title]({{ site.url }}/assets/img/25000_0.png)
-![One Piece title]({{ site.url }}/assets/img/26000_0.png)
-![One Piece title]({{ site.url }}/assets/img/27000_0.png)
-![One Piece title]({{ site.url }}/assets/img/28000_0.png)
-![One Piece title]({{ site.url }}/assets/img/29000_0.png)
-![One Piece title]({{ site.url }}/assets/img/30000_0.png)
-![One Piece title]({{ site.url }}/assets/img/31000_0.png)
-![One Piece title]({{ site.url }}/assets/img/32000_0.png)
-![One Piece title]({{ site.url }}/assets/img/33000_0.png)
-![One Piece title]({{ site.url }}/assets/img/34000_0.png)
-![One Piece title]({{ site.url }}/assets/img/35000_0.png)
-![One Piece title]({{ site.url }}/assets/img/36000_0.png)
-![One Piece title]({{ site.url }}/assets/img/37000_0.png)
 
 
 
@@ -160,54 +261,6 @@ In summary, I'd say we are on the right track (its learning features!), however,
 
 1. The euclidian distance issue described above.. in our own custom architecture, I describe a plan of attack against this issue.
 2. Blacks are never colored. You can especially see this in the Kanji (lettering) where a black colored marking is supposedly bright red or purple to accent intensity, violence, suprise, etc. Note that in the case of black and white photographs for which this architecture was designed, this is fine. Black is supposed to stay black. HOwever, here, we are converting this to a black channel and trying to guess its a,b constituents, then converting it back into rbg to be shown. Predition of the black (luminance) channel is not something that the model covers. It assumes that the luminance will not change and for the lettering, this is not the case. It goes from 100% luminance(black) to 50% red. The only way we could forseeably pick this as well is to include this information in the prediction.
-
-Both of these issues are addressed below in our Custom Model
-
-#Custom Model
-
-
-OK
-
-
-woot woot! I'm finally training. However, my loss is going NOWHWERE fast. its hovering at 4850, seemingly no matter what sample I try it on. 
-
-![One Piece title]({{ site.url }}/assets/img/training-loss-on-1000-samples.png)
-
-Here I have tried 3 different optimizers - sgd with a learning rate of 0.001, momentum of 0.9 and nesterov enabled, adadelta, and adam. 
-
-All 3 seem to run into the same basic bottleneck at the same point, leading me to avoid trying even more different optimizers. 
-
-
-However, in the wisdom of IRC, a very helpful member, johnflux, metioned that this model was simply more complex than it should be -- toooooo much data. According to him, I need about an average of 10 samples per feature I wish to train - INCREDIBLY USEFUL information if true. Because I am a noob, I decided to trust him. In any case, everyhting I see online indeed suggests this - much larger batch sizes - smaller samples basically. 
-
-
-I need to simplify this whole thing. Currently, this model has 48 million features and 880 parameters to train. That amounts to 500 million training examples. I have 300,000 so no bueno. 
-
-
-Thus, simplify we can and must! Ok so to do this, there are several possibilities
-
-1. remove hypercolumns
-2. reduce image size. This would add a benefit of increasing number of samples. However I am worried about the patching issue described above
-3. remove layers from our colorization network.
-
-I ended up doing all 3. YOLO. I resized each image down from 224x224 to 50x50 effectively reducing the number of input features by a ratio of 50174/2500 or 18.1. 
-
-![One Piece title]({{ site.url }}/assets/img/ship-224px.png)
-
-![One Piece title]({{ site.url }}/assets/img/ship-50px.png)
-
-original image (left) and scaled image (right). Note obviously the lack of detail on the right. This is an especially detailed image however, so usually it won't be this bad. 
-
-I also only used hypercolumns 8 and 15 after some deliberation. I only wanted 2 layers. Since as you move forward through the network, the hypercolumns give increasingly semantic rather than location specific information, Thus I want the earlier layers as i am interested in pixel specific coloring. So not 22. Then I picked 8 and 15 rather than 3 and 15 as 3 just seems a bit too early to give useful information, especially if it was one of only 2 hypercolumns. 
-
-Finally, removing layers from the colorization network basically came with the territory. 
-
-
-
-
- ![One Piece title]({{ site.url }}/assets/img/Architecture.png)
-
-
 
 
 
