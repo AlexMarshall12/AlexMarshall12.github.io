@@ -10,7 +10,9 @@ category: projects
 
 Manga (漫画 Manga) are comics created in Japan, or by creators in the Japanese language, conforming to a style developed in Japan in the late 19th century.[1] They have a long and complex pre-history in earlier Japanese art.
 Manga stories are typically printed in black-and-white,[9] although some full-color manga exist (e.g., Colorful). Colorization of Manga is usually done after it is released in black and white format. This is often avoided because colorization is time-consuming.
-![One Piece title]({{ site.url }}/assets/img/manga-sample.jpg)
+
+<img src="http://alexmarshall12.github.io/assets/img/manga-sample.jpg" width="500">
+
 
 To this point, the goal of this project is to aleviate this time consuming pain of colorization by using machine learning to train a model which will thereby be able to perform automatic colorization. It will train on colorized examples to identify shapes and objects in the manga image which are a consistent color. Then, when fed a black and white manga from the same artist and series, it should be able to guess the fill color by relating the properties of the shape to the training set. The same artist and series is chosen to simlify this procedure. Generalization may be part of expansion of this project if it goes well :).
 Now, what manga will we use? What a silly question! One Piece of Course! The inspiring story of a boy who eats the Gomu Gomu no mi (rubber fruit) and is going to be the Pirate King one day! If you haven't read this epic tale, not only will you get a fun glimpse of it while reading through this notebook, but I highly suggest you read the rest.
@@ -63,8 +65,7 @@ As a first cut, I decided to run a linear regression prediction using those 5 fe
 
 Unfortunately, if you run this code, you will see that the model doesn't perform very well on test data. I get a score of 0.0164566366493. As mentioned in the introduction, one cool aspect of this dataset is that we can evaluate it visually. Note that the linear_regression.py script colors in a test svg with the predicted colors. See the result below...
 
-
-![One Piece title]({{ site.url }}/assets/img/best_guess.png)
+<img src="http://alexmarshall12.github.io/assets/img/best_guess.png" width="500">
 
 Clearly not good - in fact the color choice seems almost random rather than based on the polygon features like we'd hoped. We could pour more time into improving this model, or perhaps using a random forest regression predictor. Addtionally, we could quantize the output color space into bins and attempt classification instead. These are all valid directions, however I believe the large issue at this point is our feature selection. The polygon itself includes no information about the scene its in, the context of the image, surrouding objects, etc - all things which I believe are necessary to predict the color. 
 
