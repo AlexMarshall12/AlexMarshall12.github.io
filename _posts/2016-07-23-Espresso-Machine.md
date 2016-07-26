@@ -72,6 +72,13 @@ Heres the general idea, expertly illustrated. If you increase the temperature of
 Here is the prototype:
 
 
+<img src="http://alexmarshall12.github.io/assets/img/prototype-on-floor.jpg" width="500">
+<img src="http://alexmarshall12.github.io/assets/img/prototype-on-stove.jpg" width="500">
+
+
+You can see it expertly crafted from galvanized aluminum pipe and pipe dope to prevent leakage. You can see how the larger chamber is on the stove while the smaller chamber is above a pressure relief valve and pressure gauge. On top is our valve where we can fill these chambers with water. Our hope is that when the chamber on the left is heated, vapor pressure will travel through the top over to the other chamber. We can monitory this pressure rise with our pressure gague. Then, when we reach 75psi, our pressure relief valve will activate releasing the water. We will measure the temperature of this water. Note that 75psi is about half of what we will eventually need - 9atm. This is for safety basically. Proof of concept before we go full out building a pipe bomb in my kitchen. 75 psi is no laughing matter btw, especially with heat and dense heavy metal, it actually took me some nerve to test this thing. You can see the test below:
+
+
 
 
 

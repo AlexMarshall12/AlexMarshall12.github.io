@@ -25,6 +25,8 @@ There have been a number of previous attempts to do this, divided into 2 categor
 Manga is often auto-colored via this technique. A section is manually colored and a "bucket fill algorithm is used
 Machine learning auto-colorization techniques are often pixel based. They work on real life jpgs.
 
+Now, note that all of the code I am about reference lives in [This Repo](https://github.com/AlexMarshall12/manga-learn)
+
 # SVG approach #
 
 First we try learning through the use of SVG - we take advantage of the fact that manga has larger and more distinct shapes, as well as more solid and uniform colors than black and white photograph images. To put it specifically, for each page of manga, we
