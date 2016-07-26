@@ -78,8 +78,9 @@ Research has shown that they can also be used to predict the color of pixels. A 
 
 By far, the paper I drew the most inspiration from is Richard Zhang's [Colorful Image Colorization](http://richzhang.github.io/colorization/). To begin with, I fed my manga images through his trained network that he graciously put on github for people to try. You can see the result below
 
+![One Piece title]({{ site.url }}/assets/img/rzhang-colorized-manga.png)
 
-Not great... This is not totally unexpected of course - as his network was trained on photographs as opposed to manga pictures. I believe it has a difficult time because such large white spaces are not in photographs whereas in manga they are pretty much the majority of the page - and are exactly what we are trying to color. Thus in immitating his methods, we are taking a leap of faith that the failure of this test is due to a lack of training on the right features, rather than a fundamental difference between photography and animation which prevents learning with such an architecture from being successful in the later case. If this makes us uneasy, let us shelve our discomfort for now and revist at a later time :). 
+kind of gross looking tbh haha. This is not totally unexpected of course - as his network was trained on photographs as opposed to manga pictures. I believe it has a difficult time because such large white spaces are not in photographs whereas in manga they are pretty much the majority of the page - and are exactly what we are trying to color. Thus in immitating his methods, we are taking a leap of faith that the failure of this test is due to a lack of training on the right features, rather than a fundamental difference between photography and animation which prevents learning with such an architecture from being successful in the later case. If this makes us uneasy, let us shelve our discomfort for now and revist at a later time :). 
 
 
 Unfortunately the code that richard uses to train his network is not online and even if it was, I question whether I could get it to work with caffe - I had a hard enough time just installing it to test the completed model. 
@@ -196,19 +197,6 @@ This reduces my network down to about 1.1 million parameters. When we train agai
 
 ![One Piece title]({{ site.url }}/assets/img/smaller-model-loss.png){: .center-image }
 ![One Piece title]({{ site.url }}/assets/img/batch-64.png){: .center-image }
-
-
-You've probably noticed t
-
-Heres the bigun - 
-
-challenges
- 
-Trying to engineer my own features using svg
-really big features
-loss function issues - multimodal regression :(
-	 categorization - but it has to be special - soft encoding using k nearest neighbors
-
 
 # Retrospective #
 
