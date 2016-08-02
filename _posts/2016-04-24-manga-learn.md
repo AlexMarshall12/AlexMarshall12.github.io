@@ -198,7 +198,14 @@ Finally, removing layers from the colorization network basically came with the t
 
 This reduces my network down to about 1.1 million parameters. When we train again....
 
-![One Piece title]({{ site.url }}/assets/img/smaller-model-loss.png){: .center-image }
+<img src="http://alexmarshall12.github.io/assets/img/smaller-model-loss.png" width="700">
+
+This is the loss using a batch size of 3 samples - basically "online" training or just staindard SGD. As you can see it seems to get stuck at a loss of ~4850. After doing some reasearch into getting stuck like this, I found this paper: http://deeplearning.cs.cmu.edu/pdfs/Gori_Tesi.pdf which recommends "batch mode" learning as a scenario in which local minima are more commonly avoided. Thus, I upped my batch size to 64.  
+
+<img src="http://alexmarshall12.github.io/assets/img/batch-64.png" width="700">
+
+This actually looks a bit better - you can see that perhaps its not gonna stay at that 175 loss and indeed decrease. At this point, I realized to truly evaluate, I would need of course more data. Athough accuracy is great! 0.36
+
 ![One Piece title]({{ site.url }}/assets/img/batch-64.png){: .center-image }
 
 # Retrospective #
