@@ -27,7 +27,7 @@ There have been a number of previous attempts to do this, divided into 2 categor
 Manga is often auto-colored via this technique. A section is manually colored and a "bucket fill algorithm is used
 Machine learning auto-colorization techniques are often pixel based. They work on real life jpgs.
 
-Now, note that all of the code I am about reference lives in [This Repo](https://github.com/AlexMarshall12/manga-learn)
+Now, note that all of the code I am about reference lives in [This Repo](https://github.com/AlexMarshall12/manga-learn/tree/raw-hdf5-input)
 
 # SVG approach #
 
@@ -61,7 +61,7 @@ I also considered adding an index feature. Since each SVG is built in a layered 
 
 ## Step 4  & 5 ##
 
-As a first cut, I decided to run a linear regression prediction using those 5 features and the 'r','g','b' values as output labels. You can see the code in the linear_regression.py file on github.
+As a first cut, I decided to run a linear regression prediction using those 5 features and the 'r','g','b' values as output labels. You can see the code in the guess.py file on github.
 
 Unfortunately, if you run this code, you will see that the model doesn't perform very well on test data. I get a score of 0.0164566366493. As mentioned in the introduction, one cool aspect of this dataset is that we can evaluate it visually. Note that the linear_regression.py script colors in a test svg with the predicted colors. See the result below...
 
@@ -154,7 +154,7 @@ For this, we go back to Richard Zhang's approach. He mentions this issue in his 
 
 ## Custom Model ##
 
-My model borrows heavily from both richard's and the colornet model from pavelgonchar. Here is its architecture:
+My model borrows heavily from both richard's and the colornet model from pavelgonchar. There is one file that converts pre-sliced images into hdf5 raw arrays - X which results from feeding the black and white image through a VGG-16-net and y which is the "binned" output columns. This is done in the populate_h5.py file and the custom model architecture is shown in the train.py file. Here is this architecture:
 
 
  ![One Piece title]({{ site.url }}/assets/img/Architecture.png)
