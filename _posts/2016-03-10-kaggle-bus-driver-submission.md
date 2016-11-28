@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Kaggle Bus Driver submission	
-category: projects
+category: personal2
 ---
 
 Ok so the one piece manga colorizer is harder than I expected. Still do-able but tricky. In the meantime, Im gonna try a fairly standard image classification problem on Kaggle - [State Farm Distracted Drivers](https://www.kaggle.com/c/state-farm-distracted-driver-detection). As a perfect driver myself, I am shocked and appaled at the need for such a system, but apparently there is a lot of darkness in the world :p 

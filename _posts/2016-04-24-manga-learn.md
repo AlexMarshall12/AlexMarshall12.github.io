@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Manga Learn!
-category: projects
+category: personal
 ---
 * TOC
 {:toc}
