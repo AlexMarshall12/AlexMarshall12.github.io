@@ -223,4 +223,64 @@ Since this is my first time working with neural networks, and first non-kaggle m
 4. Blacks are never colored. You can especially see this in the Kanji (lettering) where a black colored marking is supposedly bright red or purple to accent intensity, violence, suprise, etc. Note that in the case of black and white photographs for which this architecture was designed, this is fine. Black is supposed to stay black. HOwever, here, we are converting this to a black channel and trying to guess its a,b constituents, then converting it back into rbg to be shown. Predition of the black (luminance) channel is not something that the model covers. It assumes that the luminance will not change and for the lettering, this is not the case. It goes from 100% luminance(black) to 50% red. The only way we could forseeably pick this as well is to include this information in the prediction.
 
 
+Colorization worked great, few issues:
+didn't color large images - only small ones which were entirely contained in the the random 24/24 square. Also boundaries were obvious of course because they showed 2 different squares colored differently
 
+
+Next step - take each panel at a time. a few questions - should it be stretched or just placed on 224x224?
+
+Perhaps we should just do the contour.... Even if contours overlap, who cares? This might be a good thing? 
+
+apect ratio of a few random chapters....:
+
+![histogram-chapter-2]({{ site.url }}/assets/img/2nd-sample-chapter-aspect-ratios.png)
+![histogram-chapter-3]({{ site.url }}/assets/img/3rd-sample-chapter-aspect-ratios.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/1rst-sample-chapter-aspect-ratios.png)
+
+
+However, as I was inspecting the data, I found something really interesting. Look at the contours on this chapter in particular.
+
+![overlapping-contours]({{ site.url }}/assets/img/1rst-sample-chapter-aspect-ratios.png)
+
+Note how in the main panel, there are several contours on top of each other - no one contour forms the entire image. This initially seems like a bad thing - how do you know what to feed to the model? Well I think you could feed all of these overlapping contours and they would all be analyzed seperately. Additionally there is no problem with that. Each contour holds a seperate object. In fact, why are we so held up on this concept of panel specific contours? Why don't we just do the entire page by contour and let them overlap? Maybe this would have been obvious to some but for me it was a big lightbulb moment.
+
+1 big question at hand is the threshold of areas we are willing to consider a "valid" contour. Obviously really small objects could be just noise. On the other extreme, if we wanted only panels, we would probably have to accept only really big contours. Since we are feeding in images to a network in 224x224 size, it seems reasonable that we use the threshold of 50176. However... I think it might be a question of how close it is to 50176 and the shape it is. This might be a factor that we have to compute specially.. Ill get back to this. 
+
+Chapter 1
+
+Now were gonna look at our two seperate strategies for each chapter. 
+
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693146.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693146_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693148.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693148_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693151.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693151_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693153.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693153_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693154.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693154_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693158.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693158_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693162.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693162_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693163.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693163_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693165.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693165_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693169.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693169_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693171.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693171_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693177.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693177_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693180.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693180_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693181.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693181_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693184.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693184_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693188.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693188_colored2.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693192.png)
+![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693192_colored2.png)
