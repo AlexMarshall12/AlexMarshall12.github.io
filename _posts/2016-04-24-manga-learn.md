@@ -251,8 +251,8 @@ Chapter 1
 Now were gonna look at our two seperate strategies for each chapter. 
 
 <figure class="half">
-	<img src="http://alexmarshall12.github.io/assets/img/colored_1693146.png">
-	<img src="http://alexmarshall12.github.io/assets/img/one-piece-1693146_colored2.png">
+	<img style="width:200px" src="http://alexmarshall12.github.io/assets/img/colored_1693146.png">
+	<img style="width:200px" src="http://alexmarshall12.github.io/assets/img/one-piece-1693146_colored2.png">
 	<figcaption>Caption describing these two images.</figcaption>
 </figure>
 
