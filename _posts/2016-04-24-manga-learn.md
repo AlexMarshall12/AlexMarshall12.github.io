@@ -249,8 +249,8 @@ Note how in the main panel, there are several contours on top of each other - no
 Chapter 1
 
 Now were gonna look at our two seperate strategies for each chapter. 
+| ![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693146.png)! | [histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693146_colored2.png) |
 
-![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693146.png)![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693146_colored2.png)
 
 ![histogram-chapter-1]({{ site.url }}/assets/img/colored_1693148.png)
 ![histogram-chapter-1]({{ site.url }}/assets/img/one-piece-1693148_colored2.png)
