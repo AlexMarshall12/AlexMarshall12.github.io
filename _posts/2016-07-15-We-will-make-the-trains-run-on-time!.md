@@ -1,7 +1,11 @@
 ---
 layout: post
 title: We will make the trains run on time!
+<<<<<<< HEAD
 category: personal2
+=======
+category: opinion
+>>>>>>> b98daf37962b4c95138b79a60a6fff251f264d4a
 ---
 
 Whether or not Mussolini actually said this is not terribly relevant. In fact, the fact that he didn't specifically say this, but that history latched on to it anyways -after reframing it, makes it all the more powerful. We want to hear shit like this. Its outrageous, evocative, intoxicating and alluring. Its exactly what someone trying to win our hearts should be saying. 
