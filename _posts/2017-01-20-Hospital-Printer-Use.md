@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Honored with an opportunity
+title: Hopsital Printer Use
 category: projects
 ---
 
@@ -95,8 +95,7 @@ What we really want to know is, Are those departments with all those printers ac
 ax = sns.regplot(x="# of Printers", y="Average Meter Total", data=printer_use_df, fit_reg=False)
 ```
 
-
-![png](Auxillio%20data_files/Auxillio%20data_7_0.png)
+![png]({{ site.url }}/assets/img/Auxillio_data_7_0.png)
 
 
 Interesting! Ok, lets look at the outliers. Laboratories have a total of 70 printers yet the average use is way below average. On the other hand, Copy centers have a TON of printing going on with only 4 printers - maybe they need some more. Accounting has by far the most activity with 34 printers at an average meter count of near 1 million as well. If only they all could be more like Accounting!
@@ -136,8 +135,7 @@ sns.set_style("whitegrid")
     Name: Full Model Name, dtype: int64
 
 
-
-![png](Auxillio%20data_files/Auxillio%20data_10_1.png)
+![png]({{ site.url }}/assets/img/Auxillio_data_10_1.png)
 
 
 We can see that XM7155 is by far the most common printer even with its relatively low meter totals. Additionally, based on the distributions, we can look at BizHub Press C1070 and say that this printer is being used most often. However, to know this for sure, it would be useful to cross reference these findings with the ones above regarding Departments. Here we extract the list of all printers in each department and find the mode - the most common printer model. 
