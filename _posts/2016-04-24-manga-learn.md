@@ -2,6 +2,7 @@
 layout: post
 title: Manga Learn!
 category: projects
+published: false
 ---
 * TOC
 {:toc}
@@ -103,41 +104,13 @@ Its important to note one potential drawback of this method is that since these 
 
 
 ![One Piece title]({{ site.url }}/assets/img/1000_0.png)
-![One Piece title]({{ site.url }}/assets/img/2000_0.png)
-![One Piece title]({{ site.url }}/assets/img/3000_0.png)
-![One Piece title]({{ site.url }}/assets/img/4000_0.png)
-![One Piece title]({{ site.url }}/assets/img/5000_0.png)
-![One Piece title]({{ site.url }}/assets/img/6000_0.png)
-![One Piece title]({{ site.url }}/assets/img/7000_0.png)
-![One Piece title]({{ site.url }}/assets/img/8000_0.png)
-![One Piece title]({{ site.url }}/assets/img/9000_0.png)
+
 ![One Piece title]({{ site.url }}/assets/img/10000_0.png)
-![One Piece title]({{ site.url }}/assets/img/11000_0.png)
-![One Piece title]({{ site.url }}/assets/img/12000_0.png)
-![One Piece title]({{ site.url }}/assets/img/13000_0.png)
-![One Piece title]({{ site.url }}/assets/img/14000_0.png)
-![One Piece title]({{ site.url }}/assets/img/15000_0.png)
-![One Piece title]({{ site.url }}/assets/img/16000_0.png)
-![One Piece title]({{ site.url }}/assets/img/17000_0.png)
-![One Piece title]({{ site.url }}/assets/img/18000_0.png)
-![One Piece title]({{ site.url }}/assets/img/19000_0.png)
+
 ![One Piece title]({{ site.url }}/assets/img/20000_0.png)
-![One Piece title]({{ site.url }}/assets/img/21000_0.png)
-![One Piece title]({{ site.url }}/assets/img/22000_0.png)
-![One Piece title]({{ site.url }}/assets/img/23000_0.png)
-![One Piece title]({{ site.url }}/assets/img/24000_0.png)
-![One Piece title]({{ site.url }}/assets/img/25000_0.png)
-![One Piece title]({{ site.url }}/assets/img/26000_0.png)
-![One Piece title]({{ site.url }}/assets/img/27000_0.png)
-![One Piece title]({{ site.url }}/assets/img/28000_0.png)
-![One Piece title]({{ site.url }}/assets/img/29000_0.png)
+
 ![One Piece title]({{ site.url }}/assets/img/30000_0.png)
-![One Piece title]({{ site.url }}/assets/img/31000_0.png)
-![One Piece title]({{ site.url }}/assets/img/32000_0.png)
-![One Piece title]({{ site.url }}/assets/img/33000_0.png)
-![One Piece title]({{ site.url }}/assets/img/34000_0.png)
-![One Piece title]({{ site.url }}/assets/img/35000_0.png)
-![One Piece title]({{ site.url }}/assets/img/36000_0.png)
+
 ![One Piece title]({{ site.url }}/assets/img/37000_0.png)
 
 
@@ -145,14 +118,14 @@ Again, not terrific results, but only 10,000 images were used. I do think its ne
 
 Most of the time, its just kind of a bland brownish grey. There are 2 reasons for this. 
 
-1. We didn't train enough images - no question about it. To truly test this model, we should put all of our manga images into the model. The fact that it can detect features such as feet while not knowing what colors to use is further testament to this. Since the object segmentations/recognition piece has essentially already been trained when we use the VGG16 weights, it makes sense that it would be good at this part while failing at the colorization part. It simply hasn't seen enough examples to know what color a foot should be. This is clearly an avoidable problem - we simply need to feed it more data!
+1. We didn't train enough images. To truly test this model, we should put all of our manga images into the model. The fact that it can detect features such as feet while not knowing what colors to use is further testament to this. Since the object segmentations/recognition piece has essentially already been trained when we use the VGG16 weights, it makes sense that it would be good at this part while failing at the colorization part. It simply hasn't seen enough examples to know what color a foot should be. This is clearly an avoidable problem - we simply need to feed it more data!
 
 2. The linear nature of a color space and our error function mean that when the model is trying to minimize the loss, it simply guesses the middle of the road - brownish grey. Even if a shape is perfectly recognized as a flag for instance, pure blue is very far away from pure red in euclidean terms which the optimizer uses to judge correctness. Middle of the road greyish brown is relatively close to every true color just because it is in the middle of the color space. Thus when our poor model is trying to predict a flag to be blue or red (both reasonable choices), it learns to throw up its hands and guess greyish brown every time because this minimizes the penalization it sees for each wrong guess. This is a more worrysome issue than the one described above. No matter how many images we train, greyish brown will remain a reasonable choice for a model to guess over and over again. Thus, perhaps a change in achitecture is afoot!
 
 For this, we go back to Richard Zhang's approach. He mentions this issue in his paper and comes up with an execellent workaround. Istead of treating this as a regression problem, we will quantize the output color space and thus the task become classifying each pixel into one of these quantized color bins. Specifically, our task is to predict a probability distribution for each pixel of the image where each probability is the likelyhood of it belonging to a particular bin. We then select the most likely bin and color the pixel as such. This way, rather than judging each guess as "correct" or "incorrect", we can jugde a guess by its predictive power against each bin. This type of evaluation gives an optimizer much more information for it to improve the next time around.
 
 
-## Custom Model ##
+### Custom Model ###
 
 My model borrows heavily from both richard's and the colornet model from pavelgonchar. There is one file that converts pre-sliced images into hdf5 raw arrays - X which results from feeding the black and white image through a VGG-16-net and y which is the "binned" output columns. This is done in the populate_h5.py file and the custom model architecture is shown in the train.py file. Here is this architecture:
 
@@ -245,6 +218,9 @@ However, as I was inspecting the data, I found something really interesting. Loo
 Note how in the main panel, there are several contours on top of each other - no one contour forms the entire image. This initially seems like a bad thing - how do you know what to feed to the model? Well I think you could feed all of these overlapping contours and they would all be analyzed seperately. Additionally there is no problem with that. Each contour holds a seperate object. In fact, why are we so held up on this concept of panel specific contours? Why don't we just do the entire page by contour and let them overlap? Maybe this would have been obvious to some but for me it was a big lightbulb moment.
 
 1 big question at hand is the threshold of areas we are willing to consider a "valid" contour. Obviously really small objects could be just noise. On the other extreme, if we wanted only panels, we would probably have to accept only really big contours. Since we are feeding in images to a network in 224x224 size, it seems reasonable that we use the threshold of 50176. However... I think it might be a question of how close it is to 50176 and the shape it is. This might be a factor that we have to compute specially.. Ill get back to this. 
+
+![bullet-biter.jpg]({{site.baseurl}}/assets/img/bullet-biter.jpg)
+
 
 Chapter 1
 
