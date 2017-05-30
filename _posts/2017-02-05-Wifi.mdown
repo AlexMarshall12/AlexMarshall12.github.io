@@ -3,3 +3,16 @@ layout: post
 title: Hopsital Printer Use
 category: WiFi
 ---
+
+Current data distribution is a waste... At any one point in time, there are 100's of WiFi networks all at various frequencies. This is a waste of infrastructure, power, and money. 
+
+In a perfect world, each person could login to whatever wifi they would like to use. Theoretically only 1 would be "good" as only that would start working..
+
+To eat in a coffee shop, a person would get on the coffee shop account. 
+
+The good think about internet is that it can be wireless.......
+
+OK without satellites...
+
+If you just had 1 tower with WIFI?
+

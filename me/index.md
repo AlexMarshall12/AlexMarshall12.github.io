@@ -11,6 +11,8 @@ I am interested in range of industries, including energy production, transportat
 I graduated from college in 2012 and have been working as a software developer in Santa Barbara, CA. Most recently, I have been working at a data visualization company named Conduce.
 
 In my free time, I enjoy a number of sports - running, ultimate frisbee, soccer, basketball, weightlifting, snowboarding, as well as spending time in nature, traveling, cooking, hacking or prototyping, machine learning projects, one piece reading, building espresso machines...
+![png]({{ site.url }}/assets/img/IMG_1230.png)
+![png]({{ site.url }}/assets/img/IMG_1231.png)
 
 
  
