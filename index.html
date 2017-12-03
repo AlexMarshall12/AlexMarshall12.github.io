@@ -92,7 +92,7 @@ function animate(frameNo) {
 }
 function init() {
     var el = document.getElementById("sprite");
-    el.ontouchstart = myTimerObj.start();
+    el.ontouchstart = myTimerObj.start;
 }
 document.getElementById('slider').defaultValue = 631;
 document.querySelector('#slider').addEventListener('input', function(e) {
