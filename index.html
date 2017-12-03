@@ -1,9 +1,9 @@
-<div class="container">
-<div id="sprite" title="sprite">
+<body onload="init();" ontouchstart="startTouch(event)">
+<div onTouchstart="startTouch(event)" id="sprite" title="sprite">
 </div>
 <input type="range" min="1" max="631" step="1" id="slider">
 <img id='cursor' src='cursor.png'></img>
-</div>
+</body>
 <style>
 .container {
     width:352px;
@@ -53,14 +53,6 @@
 }
 </style>
 <script>
-document.getElementById('slider').defaultValue = 631;
-document.querySelector('#slider').addEventListener('input', function(e) {
-    animate(this.value);
-    myTimerObj.end();
-});
-document.querySelector('#slider').addEventListener('change',function(e){
-    myTimerObj.start();
-});
 var myTimerObj = (function(document){
    
    var myTimer;
@@ -98,6 +90,18 @@ function animate(frameNo) {
    div.style.backgroundPosition = offsets;
    div.innerText = 'Frame ' + frameNo; 
 }
+function init() {
+    var el = document.getElementById("sprite");
+    el.ontouchstart = myTimerObj.start();
+}
+document.getElementById('slider').defaultValue = 631;
+document.querySelector('#slider').addEventListener('input', function(e) {
+    animate(this.value);
+    myTimerObj.end();
+});
+document.querySelector('#slider').addEventListener('change',function(e){
+    myTimerObj.start();
+});
 
 var json = {
     "framesize": {
@@ -737,8 +741,4 @@ var json = {
  {'x': 25696, 'y': 786},
  {'x': 26048, 'y': 786}]
 };
-myTimerObj.start();
-console.log(json.frames[556]);
-console.log(json.frames[557]);
-console.log(json.frames[558]);
 </script>
