@@ -1,0 +1,92 @@
+<header>
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+	<link href="css/landing-page.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+</header>
+	<script>
+let previousTimerId = null;
+window.addEventListener('load', function() {
+  var benefits = document.getElementsByClassName('benefit');
+
+  if (benefits[0]) {
+    activate(benefits[0]);
+  }
+
+  Array.from(benefits).forEach(function(benefit) {
+  	benefit.addEventListener('click', function(e) {
+    	activate(e.target);
+    });
+  });
+});
+
+
+function activate(targetBenefit) {
+  if (previousTimerId) clearTimeout(previousTimerId)
+
+  var activeTarget = targetBenefit.dataset.target;
+  var allTargets = document.querySelectorAll(`[data-targeted-by]`); 
+ 
+  var targetElems = document.querySelectorAll(`[data-targeted-by="${activeTarget}"]`);
+  console.log(`[data-targeted-by="${activeTarget}"]`, targetElems)
+  
+  Array.from(allTargets).forEach(el => {
+    el.classList.remove("active");
+  });
+  
+  Array.from(document.querySelectorAll('.benefit.active')).forEach(function(dot) {
+  	dot.classList.remove('active');
+  });
+  
+  targetBenefit.classList.add('active');
+  Array.from(targetElems, (targetElem) => {
+	  targetElem.classList.add('active');
+  });
+  var benefits = document.getElementsByClassName('benefit');
+  var benefits_arr = Array.from(benefits)
+  var index = benefits_arr.indexOf(targetBenefit);
+  previousTimerId = setTimeout(function() {
+	  activate(benefits[(index+1)%3])
+  },8000);
+}
+</script>
+<body>
+	<div class="main-wrapper">
+		<div class="Header">
+			<div class="Logo" style="margin-left:5%;font-family:'Oswald';font-size:2.2em;font-weight:bold;">SkillSpace
+			</div>
+		</div>
+		<div class="Description">A place to post and store all your training progress photos and videos
+			<div class="signup">
+			<button><a href="#Signup">Signup!</a></button>
+			</div>
+		</div>
+		<div class="Summarize">What gets measured gets better!</div>
+		<div class="Grey-Stripe"></div>
+                <div class="Benefits">
+                        <div id="benefit1" class="benefit" data-target="screenshot1">Save space on your phone. Store photos and videos in the Cloud
+                        </div>
+                        <div id="benefit2" class="benefit" data-target="screenshot2">Keep track of your progression. Get help when you're stuck</div>
+                        <div id="benefit3" class="benefit" data-target="screenshot3">Help others with their training. Share in their success</div>
+		</div>
+                <div class="screenshots">
+                    <div id="screenshot1" class="screenshot" data-targeted-by="screenshot1"><img src="images/Profile.png"></div>
+                    <div id="screenshot2" class="screenshot" data-targeted-by="screenshot2"><img src="images/Skillpage.png"></div>
+                    <div id="screenshot3" class="screenshot" data-targeted-by="screenshot3"><img src="images/Notifications.png"></div>
+		</div>
+		<div id="Signup" class="Signup">
+			<div id="Info">
+				Skillspace is under construction. Enter your email below and when it is completed, you'll be the first to know. Comments/questions are encouraged! 
+			</div>
+
+			<form action="/subscribe" method="post" class="subscribe-form">
+				<input type="text" name="comments" class="comments" placeholder="Questions or Comments..."/>
+				<br>
+				<input type="text" name="email" class="email" placeholder="Email address"/>
+
+				<button type="submit" class="subscribe-submit">Signup!</button>
+			</form>
+		</div>
+	</div>
+
+</body>
