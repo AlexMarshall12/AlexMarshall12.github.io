@@ -6,8 +6,6 @@ category: opinion
 ---
 Business becomes lame when it makes things less efficient. One example is when a company tries to overproduce a youtube video. https://www.youtube.com/watch?v=tFUIVRLXD68 Say this youtube video shows a cat purring at the loudest world record breaking amount of decibles ever recorded for a specific cat.
 
-![](/uploads/Screen Shot 2018-10-09 at 1.56.46 PM.png)
-
 People clearly want to see only the cat purring. The company however tries to doctor up the video so that it has more advertising revenue, content generation, can employ more people.
 
 This is making the delivery mechanism worse. The worst part is, the company knows that it isn't providing more value for the end user by doing this. Instead they know that infefficiencies in advertising companies allow ad newtorks to pay them $ for the video, all while promising increased sales to their clients despite both parties knowing that people watching a cat purr won't be interested in buying anything else referred by the video. However, they rely on the fact that advertising is an inexact science and that poor click conversions can be forgiven even though they know damn well why its not working.
