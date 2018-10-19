@@ -219,9 +219,6 @@ Note how in the main panel, there are several contours on top of each other - no
 
 1 big question at hand is the threshold of areas we are willing to consider a "valid" contour. Obviously really small objects could be just noise. On the other extreme, if we wanted only panels, we would probably have to accept only really big contours. Since we are feeding in images to a network in 224x224 size, it seems reasonable that we use the threshold of 50176. However... I think it might be a question of how close it is to 50176 and the shape it is. This might be a factor that we have to compute specially.. Ill get back to this. 
 
-![bullet-biter.jpg]({{site.baseurl}}/assets/img/bullet-biter.jpg)
-
-
 Chapter 1
 
 Now were gonna look at our two seperate strategies for each chapter. 

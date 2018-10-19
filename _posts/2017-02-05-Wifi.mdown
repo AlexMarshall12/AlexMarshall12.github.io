@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Hopsital Printer Use
-category: WiFi
+category: opinion
 ---
 
 Current data distribution is a waste... At any one point in time, there are 100's of WiFi networks all at various frequencies. This is a waste of infrastructure, power, and money. 
