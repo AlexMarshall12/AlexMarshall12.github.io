@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Hopsital Printer Use
-category: projects
+title: Hospital Printer Use
+category: Data Science
 ---
 
 
-Were taking a look at data concerning printers in hospitals. Where are these printers, what types of printers are they, how are they being used. From a sales perspective, we can use this to become more informed on the printing needs of such a hospital. 
+Were taking a look at data concerning printers in hospitals. Where are these printers, what types of printers are they, how are they being used. From a sales perspective, we can use this to become more informed on the printing needs of such a hospital.
 
 
 ```python
@@ -85,7 +85,7 @@ print printer_use_df.sort_values('Average Meter Total',ascending=False).head(20)
     43                         ED         1.609085e+05              6
 
 
-So I think we are seeing some real results with how certain departments use the printers more commonly than other departments. Accounting for instance has an average meter total of 875,000 over a total of 34 printers. This high value doesn't seem like an outlier to me. 
+So I think we are seeing some real results with how certain departments use the printers more commonly than other departments. Accounting for instance has an average meter total of 875,000 over a total of 34 printers. This high value doesn't seem like an outlier to me.
 
 What we really want to know is, Are those departments with all those printers actually using them? For any 1 department that has a lot of printers, are they using them on average less than a department with less printers?
 
@@ -103,7 +103,7 @@ Interesting! Ok, lets look at the outliers. Laboratories have a total of 70 prin
 
 Another possibility confounding factor in this is printer preference. Perhaps when people are printing, they are choosing certain types of printers? Perhaps some printers like all those unused ones in the labs are simply just a pain to use?
 
-First lets check the distribution of meter totals, categorized by printer model... 
+First lets check the distribution of meter totals, categorized by printer model...
 
 
 ```python
@@ -138,11 +138,11 @@ sns.set_style("whitegrid")
 ![png]({{ site.url }}/assets/img/Auxillio_data_10_1.png)
 
 
-We can see that XM7155 is by far the most common printer even with its relatively low meter totals. Additionally, based on the distributions, we can look at BizHub Press C1070 and say that this printer is being used most often. However, to know this for sure, it would be useful to cross reference these findings with the ones above regarding Departments. Here we extract the list of all printers in each department and find the mode - the most common printer model. 
+We can see that XM7155 is by far the most common printer even with its relatively low meter totals. Additionally, based on the distributions, we can look at BizHub Press C1070 and say that this printer is being used most often. However, to know this for sure, it would be useful to cross reference these findings with the ones above regarding Departments. Here we extract the list of all printers in each department and find the mode - the most common printer model.
 
 
 ```python
-df = pd.read_excel('auxillio_data.xlsx',sheetname=0,header=4) #re-read in our dataframe 
+df = pd.read_excel('auxillio_data.xlsx',sheetname=0,header=4) #re-read in our dataframe
 
 printers_by_department_dict = collections.defaultdict(list)
 for index, row in df.iterrows():
@@ -161,6 +161,6 @@ for department,printers in printers_by_department_dict.iteritems():
     In  Accounting  the most popular printer is  LaserJet 4250n
 
 
-We can see that Copy Center are using the BizHub Press. Looking above, we know that the Copy Center has very few printers with high output. This confirms what we are seeing in the data and leads to additional questions - why are these higher output? Should we be suggesting these instead of a low output printer such as XM7155? Or are the areas where the XM7155 is deployed simply used by more people who print less freqeuntly? Further analysis is needed to answer these questions specifically. 
+We can see that Copy Center are using the BizHub Press. Looking above, we know that the Copy Center has very few printers with high output. This confirms what we are seeing in the data and leads to additional questions - why are these higher output? Should we be suggesting these instead of a low output printer such as XM7155? Or are the areas where the XM7155 is deployed simply used by more people who print less freqeuntly? Further analysis is needed to answer these questions specifically.
 
-Additionally, in the Laboratories, we have insufficient data to determine why so many printers exist with so little use. It may be worth going back to these printers to check the meter counts and adding them to the data set. More meter total data on printers in Accounting would help as well if we wish to further study the high print output in accounting. 
+Additionally, in the Laboratories, we have insufficient data to determine why so many printers exist with so little use. It may be worth going back to these printers to check the meter counts and adding them to the data set. More meter total data on printers in Accounting would help as well if we wish to further study the high print output in accounting.

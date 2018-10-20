@@ -1,14 +1,14 @@
 ---
 layout: default
 ---
+
 {% include header.html %}
 <ul>
 	{% for cat in site.categories %}
 	<li>
 		{% assign categoryname = cat[0]%}
 		<div class="Projects">
-			<h1>{{ cat[0] }}</h1>
-			<h2>{{ categoryname }}</h2>
+			<h1>{{ categoryname }}</h1>
 			<ul>
 				{% for post in site.categories[categoryname] %}
 				<li>

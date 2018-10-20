@@ -1,7 +1,8 @@
 ---
 layout: post
-title: Immoral business
-category: opinion
+title: Bad business
+category: Post
+published: false
 
 ---
 Business becomes lame when it makes things less efficient. One example is when a company tries to overproduce a youtube video. https://www.youtube.com/watch?v=tFUIVRLXD68 Say this youtube video shows a cat purring at the loudest world record breaking amount of decibles ever recorded for a specific cat.

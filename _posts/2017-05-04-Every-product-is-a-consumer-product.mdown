@@ -1,9 +1,10 @@
 ---
 layout: post
 title: Every product is a consumer product, every company is a consumer company
-category: posts
+category: Posts
+published: false
 ---
 
 Why is QA so hard. Why are the users the only ones to find the bugs in QA. Why was amazon only finally successful at selling services to enterprises after consumerizing their tools - becoming consumers themselves. Truly good design is impossible unless you use the product. Why is Conduce having such a hard time making an enterprise product - because no one actually uses it...
 
-There really seems to be no way around this. QA doesn't work. its basically load testing. There are so many unforseen bugs. No matter what you are building, if you want it to be great, figure out a way to use it yourself. 
+There really seems to be no way around this. QA doesn't work. its basically load testing. There are so many unforseen bugs. No matter what you are building, if you want it to be great, figure out a way to use it yourself.

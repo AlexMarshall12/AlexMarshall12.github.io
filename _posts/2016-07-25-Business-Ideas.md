@@ -1,7 +1,8 @@
 ---
 layout: post
-title: Business Ideas
-category: personal
+title: Business Idea Dump
+category: Ideas
+published: false
 ---
 
 This is a list of business ideas I've had from probably the beginning of high school. Some of them are pretty flimsy, others half-baked, others pretty good. I kind of just wanted to put it here
@@ -11,7 +12,7 @@ This is a list of business ideas I've had from probably the beginning of high sc
 2. do it yourself Car wash
 3. iron that doesnt need heat so that you can iron on your way to work
 4. Sonic boom speakers- look into the physics of a sonic boom to see if its more efficient
-5. the intense flavor candy- candy placed on your tongue that matches up to flavor receptors on tongue- salty, sweet, bitter, sour all at once. 
+5. the intense flavor candy- candy placed on your tongue that matches up to flavor receptors on tongue- salty, sweet, bitter, sour all at once.
 6. high quality water dispensers in select places along popular running routes- where water fountains are
 7. market research product demand- we do the research and you can buy it to determine where you should sell your product or what products would be useful to sell in a particular area
 8. internet fraud prevention/verification website- some way to verify that an account actually belongs to the real pperson associated with it
@@ -28,31 +29,31 @@ This is a list of business ideas I've had from probably the beginning of high sc
 23. Translucent material of gradient density to receive light at almost any angle, but emit it uniformly normal
 24. hand-mouse: a glove  you put on instead
 25. material that become more insulating with temperature drop
-	pores that dilate with warmth 
+	pores that dilate with warmth
 	hairs that straiten with decreased temperature (think animal hairs)  or material that 	 	expands
 26. Wirless internet over large areas that you pay for monthly (university campus internet speed in normal cities.)
 27. 3D camera market pinhole
 28. Soul food restaurant in IV
 29. window blind replacement with LCD technology <-- check out “smart glass”
-30. tv remote locator 
-31. glasses made out of something unbreakable. 
+30. tv remote locator
+31. glasses made out of something unbreakable.
 32. massive drive up laundromat
 33. rims that look like they are spinning backwards
 34. better bike gear system
 35. lower toilet water level more buoyant floater
 36. make existing urinals waterless
-37.t-shirt cannons
+37. t-shirt cannons
 38. water tire for developing countries
 39. automated football pitching machine
 40. online site showing gis maps of what items are most commonly sold in an area
 41. lights that you put on your lawn that light up your sprinklers water droplets when they pass over them
-42. ranking website- users can sumbit things to be ranked 
+42. ranking website- users can sumbit things to be ranked
 43. tutor database website
 44. designer 3D glasses
 45. 3D glasses with a position sensor. When your head turns, the sensor tells the image to turn
 46. DJ track fading website for parties. line up songs and the software matches the bpm and plays them
 47. website that details what products are sold in a certain area. This would be useful for consumers looking to buy particular items and for companies looking to add inventory
-48. website that shows world issues/world news and lets user rank importance. This lets people know what issues the population deems most important. 
+48. website that shows world issues/world news and lets user rank importance. This lets people know what issues the population deems most important.
 49. solar cells that first seperate the light into different frequencies then uses it
 50. glasses lenses where you can set the light curvature with LCD crystals
 51. making ping pong balls without the seam
@@ -72,7 +73,7 @@ This is a list of business ideas I've had from probably the beginning of high sc
 59. better lighter
 	more windproof
 	point flame with finger
-60. Service that gives ID for people over cell phone 
+60. Service that gives ID for people over cell phone
 61. Good solution to prevent losing things (small trackers on everyday items)
 62. retractable keel
 63. artificial gills
@@ -100,7 +101,7 @@ This is a list of business ideas I've had from probably the beginning of high sc
 86. RFID tags controlling electric circuits in your house controlled by smart phone
 87. college textbook buyback.
 88. new kinds of lotteries
-89. fusion by bonding two molecules that have a hydrogen in exactly the same place 
+89. fusion by bonding two molecules that have a hydrogen in exactly the same place
 90. coffee machines- espresso
 	steam turbines
 	expanding gas
@@ -109,14 +110,14 @@ This is a list of business ideas I've had from probably the beginning of high sc
 93. gobos
 94. 3d printed products
 95. contract CAD design for people interested in 3D printing
-96. something that is a real issue in alot of peoples lives, that I know how to fix (I am an expert, something which is unusual), and that can evolve organically (there is a customer available today) holy crap nice one man
-97. anything they tell you to do on the warrior forums- basically become an expert in some field (or pay someone who is an expert) to write about something and sell it (either drop ship or do affiliate marketing). Although they recommend choosing a niche based on keywords which is new. 
+96. something that is a real issue in alot of peoples lives, that I know how to fix (I am an expert, something which is unusual), and that can evolve organically (there is a customer available today) h
+97. anything they tell you to do on the warrior forums- basically become an expert in some field (or pay someone who is an expert) to write about something and sell it (either drop ship or do affiliate marketing). Although they recommend choosing a niche based on keywords which is new.
 98. ping pong ball manufacture
 99. better blankets- temperpedic of blankets
 100. ranking algorithm
 101. battery sales site. Need to feel comfortable writing ALLOT about batteries
 102. display sales site. Need to feel comfortable writing ALLOT about displays
-103. bilboard ad-network. This one is weird. eventually I believe that bilboard ads and online ads will be synonymous. Ie if you have an ad network, you will want to put some ads on peoples comps when they visit websites and some ads just generally on bilboards in the cities. Perhaps deciding which ads to place on those bilboards will become a bigger deal. What could affect this? The people around the bilboard. The businesses/area around the bilboard. 
+103. bilboard ad-network. This one is weird. eventually I believe that bilboard ads and online ads will be synonymous. Ie if you have an ad network, you will want to put some ads on peoples comps when they visit websites and some ads just generally on bilboards in the cities. Perhaps deciding which ads to place on those bilboards will become a bigger deal. What could affect this? The people around the bilboard. The businesses/area around the bilboard.
 104. ad network
 105. become the tempurpedic of blankets
 106. rideshare app overlayed on google maps
