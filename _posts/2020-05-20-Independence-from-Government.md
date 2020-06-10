@@ -6,12 +6,12 @@ category: Posts
 
 I think one big reason people like cryptocurrencies is their independence from government. It makes me interested in what else could be run independently from goverment. Aside from financal oversight, theres quite a bit actually. 
 
-	1. Financial assistance
-	2. Medical care
-	3. Courtrooms and Law - a public agreement of rules that everyone needs to follow. Oversight when there is a disagreement.
-	4. Protection from violence. You could argue that 3 and 2 are subcategories of this. 
-	5. Public infrastructure
-	6. Public education. 
+  1. Financial assistance
+  2. Medical care
+  3. Courtrooms and Law - a public agreement of rules that everyone needs to follow. Oversight when there is a disagreement.
+  4. Protection from violence. You could argue that 3 and 2 are subcategories of this. 
+  5. Public infrastructure
+  6. Public education. 
 
 Cryptocurrencies are in some ways, a response to people being fed up with needing the government to oversee their financial lives. I think this is shortsighted - if the government can't do this, what will happen when you do need assistance, or need to pay taxes (and use what they are spent on), or need to take out a loan or get social security or have some medical emergency - its always a two way street. You can't cherry-pick. 
 
